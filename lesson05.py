@@ -118,10 +118,8 @@ f_obj.close()
 # 7. подсчет прибыли в JSON
 import json
 
-
 f_obj0 = open('seventh.txt', 'r', encoding='utf-8')
 lines = f_obj0.readlines()
-firm_num = len(lines)
 res = None
 prof_list = []
 prof_dict = {}
@@ -137,10 +135,12 @@ for i, line in enumerate(lines):
             num_list.append(int(num[0]))
         else:
             pass
-    prof = num_list[0] - num_list[1]
-    res = i, prof
-    prof_list.append(list(res))
+    if int(num_list[0]) > int(num_list[1]):
+        prof = num_list[0] - num_list[1]
+        res = i, prof
+        prof_list.append(list(res))
 
+firm_num = len(prof_list)
 avg_prof = sum([el[1] for el in prof_list]) / firm_num
 avg_dict = {'avg_profit': avg_prof}
 prof_dict = {f'firm {i + 1}': el[1] for i, el in enumerate(prof_list)}
